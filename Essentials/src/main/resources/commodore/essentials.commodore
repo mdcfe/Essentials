@@ -1,0 +1,11 @@
+essentials {
+  debug {
+    on;
+    off;
+  }
+  version;
+  commands;
+  dump {
+    data brigadier:string greedy_phrase;
+  }
+}

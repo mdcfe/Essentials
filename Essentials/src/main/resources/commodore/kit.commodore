@@ -1,0 +1,5 @@
+kit {
+  kitname brigadier:string single_word {
+    user brigadier:string single_word;
+  }
+}

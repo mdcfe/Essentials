@@ -41,7 +41,11 @@ import com.earth2me.essentials.textreader.SimpleTextInput;
 import com.earth2me.essentials.updatecheck.UpdateChecker;
 import com.earth2me.essentials.utils.FormatUtil;
 import com.earth2me.essentials.utils.VersionUtil;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.lib.PaperLib;
+import me.lucko.commodore.Commodore;
+import me.lucko.commodore.CommodoreProvider;
+import me.lucko.commodore.file.CommodoreFileFormat;
 import net.ess3.api.Economy;
 import net.ess3.api.IEssentials;
 import net.ess3.api.IItemDb;
@@ -124,6 +128,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -181,6 +186,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     private transient Kits kits;
     private transient RandomTeleport randomTeleport;
     private transient UpdateChecker updateChecker;
+    private transient Commodore commodore;
     private transient Map<String, IEssentialsCommand> commandMap = new HashMap<>();
 
     static {
@@ -439,6 +445,10 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
                 signDataProvider = new ModernSignDataProvider(this);
             }
 
+            if (CommodoreProvider.isSupported()) {
+                commodore = CommodoreProvider.getCommodore(this);
+            }
+
             execTimer.mark("Init(Providers)");
             reload();
 
@@ -591,6 +601,10 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
             if (command != null) {
                 command.setDescription(tl(commandName + "CommandDescription"));
                 command.setUsage(tl(commandName + "CommandUsage"));
+
+                if (commodore != null) {
+                    registerCommodoreCompletions(command, commandName);
+                }
             }
         }
 
@@ -829,6 +843,19 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
             LOGGER.log(Level.SEVERE, tl("commandFailed", commandLabel), ex);
             return true;
         }
+    }
+
+    private void registerCommodoreCompletions(Command command, String commandName) {
+        try (InputStream stream = this.getResource("commodore/" + commandName + ".commodore")) {
+            if (stream != null) {
+                final LiteralCommandNode<?> brigCommand = CommodoreFileFormat.parse(stream);
+                commodore.register(command, brigCommand);
+                LOGGER.info("Registered commodore for " + commandName);
+            }
+        } catch (IOException | RuntimeException e) {
+            LOGGER.log(Level.WARNING, "a", e);
+        }
+        LOGGER.info(commodore.getRegisteredNodes().toString());
     }
 
     private boolean isEssentialsPlugin(Plugin plugin) {

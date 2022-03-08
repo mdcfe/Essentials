@@ -1,0 +1,9 @@
+give {
+  user brigadier:string single_word {
+    item brigadier:string single_word {
+      amount brigadier:integer 1 {
+        meta brigadier:string greedy_phrase;
+      }
+    }
+  }
+}
