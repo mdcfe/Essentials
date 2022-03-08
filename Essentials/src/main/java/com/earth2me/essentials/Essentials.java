@@ -603,7 +603,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
                 command.setUsage(tl(commandName + "CommandUsage"));
 
                 if (commodore != null) {
-                    registerCommodoreCompletions(command, commandName);
+                    registerCommodoreCompletions((PluginCommand) command, commandName);
                 }
             }
         }
@@ -845,10 +845,11 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         }
     }
 
-    private void registerCommodoreCompletions(Command command, String commandName) {
+    private void registerCommodoreCompletions(PluginCommand command, String commandName) {
         try (InputStream stream = this.getResource("commodore/" + commandName + ".commodore")) {
             if (stream != null) {
                 final LiteralCommandNode<?> brigCommand = CommodoreFileFormat.parse(stream);
+                command.setTabCompleter((sender, command1, label, args) -> null);
                 commodore.register(command, brigCommand);
                 LOGGER.info("Registered commodore for " + commandName);
             }
