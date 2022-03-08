@@ -1,11 +1,37 @@
 essentials {
-  debug {
-    on;
-    off;
-  }
+  debug;
+  verbose;
+
   version;
+  ver;
+
   commands;
+  cmd;
+
   dump {
     data brigadier:string greedy_phrase;
+  }
+
+  reset {
+    user brigadier:string single_word;
+  }
+
+  cleanup {
+    days brigadier:integer 0 {
+      money brigadier:double {
+        homes brigadier:integer 0;
+      }
+    }
+  }
+
+  homes {
+    fix;
+    delete {
+      world brigadier:string single_word;
+    }
+  }
+
+  uuidtest {
+    username brigadier:string single_word;
   }
 }
