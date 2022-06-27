@@ -23,10 +23,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SignBlockListener implements Listener {
-    private static final Logger LOGGER = Logger.getLogger("Essentials");
     private final transient IEssentials ess;
 
     public SignBlockListener(final IEssentials ess) {

@@ -23,13 +23,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.earth2me.essentials.I18n.tl;
 
 public class FlatItemDb extends AbstractItemDb {
-    protected static final Logger LOGGER = Logger.getLogger("Essentials");
     private static final Gson gson = new Gson();
 
     // Maps primary name to ItemData

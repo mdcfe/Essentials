@@ -10,12 +10,10 @@ import java.io.InputStreamReader;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.earth2me.essentials.I18n.tl;
 
 public class Backup implements Runnable {
-    private static final Logger LOGGER = Logger.getLogger("Essentials");
     private transient final Server server;
     private transient final IEssentials ess;
     private final AtomicBoolean pendingShutdown = new AtomicBoolean(false);

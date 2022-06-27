@@ -17,14 +17,12 @@ import java.math.MathContext;
 import java.text.MessageFormat;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * You should use Vault instead of directly using this class.
  */
 public class Economy {
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
-    private static final Logger LOGGER = Logger.getLogger("Essentials");
     private static IEssentials ess;
 
     private static final String WARN_CALL_BEFORE_LOAD = "Essentials API is called before Essentials is loaded.";
@@ -603,7 +601,7 @@ public class Economy {
         try {
             return hasEnough(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
             return false;
         }
     }
@@ -664,7 +662,7 @@ public class Economy {
         try {
             return hasMore(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
             return false;
         }
     }
@@ -726,7 +724,7 @@ public class Economy {
         try {
             return hasLess(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to compare balance of " + name + " with " + amount + ": " + e.getMessage(), e);
             return false;
         }
     }
@@ -833,7 +831,7 @@ public class Economy {
         try {
             return format(BigDecimal.valueOf(amount));
         } catch (final NumberFormatException e) {
-            LOGGER.log(Level.WARNING, "Failed to display " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to display " + amount + ": " + e.getMessage(), e);
             return "NaN";
         }
     }
@@ -900,7 +898,7 @@ public class Economy {
             createNPCFile(name);
             return true;
         }
-        LOGGER.log(Level.WARNING, MessageFormat.format(WARN_EXISTING_NPC_CREATE, name, user.getConfigUUID()), new RuntimeException());
+        ess.getLogger().log(Level.WARNING, MessageFormat.format(WARN_EXISTING_NPC_CREATE, name, user.getConfigUUID()), new RuntimeException());
         return false;
     }
 

@@ -34,12 +34,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.earth2me.essentials.I18n.tl;
 
 public class Jails implements net.ess3.api.IJails {
-    private static final transient Logger LOGGER = Logger.getLogger("Essentials");
     private static transient boolean enabled = false;
     private final IEssentials ess;
     private final EssentialsConfiguration config;
