@@ -95,7 +95,7 @@ public class AlternativeCommandsHandler {
         if (pc instanceof PluginIdentifiableCommand) {
             final String altString = ((PluginIdentifiableCommand) pc).getPlugin().getName() + ":" + pc.getName();
             if (ess.getSettings().isDebug()) {
-                LOGGER.log(Level.INFO, "Essentials: Alternative command " + label + " found, using " + altString);
+                ess.getLogger().log(Level.INFO, "Essentials: Alternative command " + label + " found, using " + altString);
             }
             disabledList.put(label, altString);
         }

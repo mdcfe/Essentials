@@ -54,8 +54,8 @@ public class Economy {
         final UUID npcUUID = UUID.nameUUIDFromBytes(("NPC:" + name).getBytes(Charsets.UTF_8));
         final File npcFile = new File(folder, npcUUID + ".yml");
         if (npcFile.exists()) {
-            LOGGER.log(Level.SEVERE, MessageFormat.format(WARN_NPC_RECREATE_1, name, npcUUID.toString()), new RuntimeException());
-            LOGGER.log(Level.SEVERE, WARN_NPC_RECREATE_2);
+            ess.getLogger().log(Level.SEVERE, MessageFormat.format(WARN_NPC_RECREATE_1, name, npcUUID.toString()), new RuntimeException());
+            ess.getLogger().log(Level.SEVERE, WARN_NPC_RECREATE_2);
         }
         final EssentialsUserConfiguration npcConfig = new EssentialsUserConfiguration(name, npcUUID, npcFile);
         npcConfig.load();
@@ -90,7 +90,7 @@ public class Economy {
             if (player != null) {
                 user = ess.getUser(player.getUniqueId());
                 if (user != null) {
-                    LOGGER.log(Level.INFO, MessageFormat.format(WARN_PLAYER_UUID_NO_NAME, name, player.getUniqueId().toString()), new RuntimeException());
+                    ess.getLogger().log(Level.INFO, MessageFormat.format(WARN_PLAYER_UUID_NO_NAME, name, player.getUniqueId().toString()), new RuntimeException());
                 }
             }
         }
@@ -190,7 +190,7 @@ public class Economy {
         try {
             setMoney(name, BigDecimal.valueOf(balance));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to set balance of " + name + " to " + balance + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to set balance of " + name + " to " + balance + ": " + e.getMessage(), e);
         }
     }
 
@@ -268,7 +268,7 @@ public class Economy {
         try {
             add(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to add " + amount + " to balance of " + name + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to add " + amount + " to balance of " + name + ": " + e.getMessage(), e);
         }
     }
 
@@ -340,7 +340,7 @@ public class Economy {
         try {
             substract(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to subtract " + amount + " of balance of " + name + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to subtract " + amount + " of balance of " + name + ": " + e.getMessage(), e);
         }
     }
 
@@ -410,7 +410,7 @@ public class Economy {
         try {
             divide(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to divide balance of " + name + " by " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to divide balance of " + name + " by " + amount + ": " + e.getMessage(), e);
         }
     }
 
@@ -482,7 +482,7 @@ public class Economy {
         try {
             multiply(name, BigDecimal.valueOf(amount));
         } catch (final ArithmeticException e) {
-            LOGGER.log(Level.WARNING, "Failed to multiply balance of " + name + " by " + amount + ": " + e.getMessage(), e);
+            ess.getLogger().log(Level.WARNING, "Failed to multiply balance of " + name + " by " + amount + ": " + e.getMessage(), e);
         }
     }
 

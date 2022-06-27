@@ -52,7 +52,7 @@ public class SignBlockListener implements Listener {
         // prevent any signs be broken by destroying the block they are attached to
         if (EssentialsSign.checkIfBlockBreaksSigns(block)) {
             if (ess.getSettings().isDebug()) {
-                LOGGER.log(Level.INFO, "Prevented that a block was broken next to a sign.");
+                ess.getLogger().log(Level.INFO, "Prevented that a block was broken next to a sign.");
             }
             return true;
         }
@@ -70,7 +70,7 @@ public class SignBlockListener implements Listener {
 
         for (final EssentialsSign sign : ess.getSettings().enabledSigns()) {
             if (sign.areHeavyEventRequired() && sign.getBlocks().contains(block.getType()) && !sign.onBlockBreak(block, player, ess)) {
-                LOGGER.log(Level.INFO, "A block was protected by a sign.");
+                ess.getLogger().log(Level.INFO, "A block was protected by a sign.");
                 return true;
             }
         }

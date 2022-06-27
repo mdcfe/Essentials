@@ -54,7 +54,7 @@ public class FlatItemDb extends AbstractItemDb {
         }
 
         this.rebuild();
-        LOGGER.info(String.format("Loaded %s items from items.json.", listNames().size()));
+        ess.getLogger().info(String.format("Loaded %s items from items.json.", listNames().size()));
     }
 
     private void rebuild() {
@@ -100,7 +100,7 @@ public class FlatItemDb extends AbstractItemDb {
             if (valid) {
                 allAliases.add(key);
             } else {
-                LOGGER.warning(String.format("Failed to add item: \"%s\": %s", key, element.toString()));
+                ess.getLogger().warning(String.format("Failed to add item: \"%s\": %s", key, element.toString()));
             }
         }
     }

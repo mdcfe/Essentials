@@ -166,7 +166,7 @@ public class EssentialsPlayerListener implements Listener, FakeAccessor {
                 user.sendMessage(user.hasMuteReason() ? tl("voiceSilencedReasonTime", dateDiff, user.getMuteReason()) : tl("voiceSilencedTime", dateDiff));
             }
 
-            LOGGER.info(tl("mutedUserSpeaks", user.getName(), event.getMessage()));
+            ess.getLogger().info(tl("mutedUserSpeaks", user.getName(), event.getMessage()));
         }
         try {
             final Iterator<Player> it = event.getRecipients().iterator();
@@ -198,7 +198,7 @@ public class EssentialsPlayerListener implements Listener, FakeAccessor {
             event.getHandlers().unregister(this);
 
             if (ess.getSettings().isDebug()) {
-                LOGGER.log(Level.INFO, "Unregistering move listener");
+                ess.getLogger().log(Level.INFO, "Unregistering move listener");
             }
 
             return;
