@@ -24,6 +24,12 @@ tasks {
         description = "Run a test server with all EssentialsX modules."
         minecraftVersion(RUN_PAPER_MINECRAFT_VERSION)
     }
+    register<RunServerTask>("runOld") {
+        group = "essentials"
+        description = "Run a test server on an older Paper version."
+        minecraftVersion(RUN_PAPER_MINECRAFT_VERSION_OLD)
+        runDirectory.set(project.layout.projectDirectory.dir("runOld"))
+    }
     named<Delete>("clean") {
         delete(file("jars"))
     }
@@ -35,16 +41,24 @@ subprojects {
         rootProject.tasks.named<RunServerTask>("runAll").configure {
             pluginJars.from(moduleExt.archiveFile)
         }
+        val genericTasks = listOf(
+            rootProject.tasks.runServer,
+            rootProject.tasks.named<RunServerTask>("runOld")
+        )
         if (name == "EssentialsX") {
-            rootProject.tasks.runServer.configure {
-                pluginJars.from(moduleExt.archiveFile)
+            genericTasks.forEach {
+                it.configure {
+                    pluginJars.from(moduleExt.archiveFile)
+                }
             }
             return@afterEvaluate
         }
         for (module in runModules) {
             if (name.contains(module, ignoreCase = true)) {
-                rootProject.tasks.runServer.configure {
-                    pluginJars.from(moduleExt.archiveFile)
+                genericTasks.forEach {
+                    it.configure {
+                        pluginJars.from(moduleExt.archiveFile)
+                    }
                 }
             }
         }
